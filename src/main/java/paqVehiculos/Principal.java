@@ -26,13 +26,15 @@ public class Principal {
          G.add(2,2000);
          
          
+         
          Moto m1 = new Moto(K,G,"MU-3456-CV","Rogelio",3,vc1);
+         
+
          
          System.out.println(K);
          System.out.println(G);
          
          m1.tenerRevision(2345, 25567);
-         
          
          System.out.println("La Revisión más cara de: " + m1.getPropietario() + " es " + m1.getGastos().get(m1.lugarRevisionMasCara()) + "€ " +" y sus Kilometros: " + m1.getKms().get(m1.lugarRevisionMasCara())+ "Kms.");
        

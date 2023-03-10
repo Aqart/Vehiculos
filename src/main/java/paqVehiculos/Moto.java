@@ -4,7 +4,6 @@ import Assets.Fecha;
 import Exceptions.RevisionesIncorrectas;
 import java.util.*;
 
-
 public class Moto extends VehiculoConMotor {
 
     private ArrayList<Integer> kms = new ArrayList(20);
@@ -182,20 +181,18 @@ public class Moto extends VehiculoConMotor {
     protected void ordenKms() {
 
         for (int i = 0; i < kms.size() - 1; i++) {
-            int indice = i;
-            for (int j = i + 1; j < kms.size(); j++) {
-                if (kms.get(j)< kms.get(indice)) {
-                    indice = j;
+            for (int j = 0; j < kms.size() - i - 1; j++) {
+                if (kms.get(j) > kms.get(j + 1)) {
+                    // intercambiar elementos en ambos arraylists
+                    int auxKms = kms.get(j);
+                    int auxGastos = gastos.get(j);
+                    kms.set(j, kms.get(j + 1));
+                    gastos.set(j, gastos.get(j + 1));
+                    kms.set(j + 1, auxKms);
+                    gastos.set(j + 1, auxGastos);
                 }
-                int auxkms = kms.get(i);
-                kms.set(i, indice);
-                kms.set(indice, auxkms);
-                int auxgastos = gastos.get(i);
-                gastos.set(i, indice);
-                gastos.set(indice, auxgastos);
             }
         }
-
     }
 
     protected int lugarRevisionMasCara() {
@@ -204,7 +201,7 @@ public class Moto extends VehiculoConMotor {
 
         for (int i = 0; i < gastos.size(); i++) {
 
-            if (gastos.get(i) > gastos.get(posicionmascara)){
+            if (gastos.get(i) > gastos.get(posicionmascara)) {
 
                 posicionmascara = i;
             }
@@ -230,12 +227,15 @@ public class Moto extends VehiculoConMotor {
 
     protected void tenerRevision(int kms, int gastos) {
 
-        if (this.numRevisiones >= 20 ) {
+        if (this.numRevisiones >= 20) {
 
             System.out.println("Superado el limite de revisiones");
         } else {
             this.kms.add(kms);
             this.gastos.add(gastos);
+            numRevisiones++;
+            ordenKms();
+            System.out.println("Revision añadida correctamente.");
         }
     }
 
@@ -272,25 +272,24 @@ public class Moto extends VehiculoConMotor {
         return Objects.equals(this.gastos, other.gastos);
     }
 
-  public String mostrarKms(){
-     return kms.toString();
-  }
-  public String mostrarGastos(){
-    
-    return gastos.toString();
-  }
- 
+    public String mostrarKms() {
+        return kms.toString();
+    }
 
-    
+    public String mostrarGastos() {
+
+        return gastos.toString();
+    }
+
     @Override
     public String toString() {
         return "**************La Moto de " + propietario + "**************"
                 + "\nMatricula:   " + matricula
-                + "\nKm:  " + mostrarKms() + " y gastos " + mostrarGastos()
-                + "Nº Revisiones Totales:  " + numRevisiones
+                + "\nKm:  " + mostrarKms() + "  y gastos " + mostrarGastos()
+                + "\nNº Revisiones Totales:  " + numRevisiones
                 + super.toString()
                 + "\n**********************************************\n";
-                
+
     }
 
     public void validarRevisiones(int numrevisiones) throws RevisionesIncorrectas {
