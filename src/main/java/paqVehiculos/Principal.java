@@ -2,8 +2,7 @@ package paqVehiculos;
 
 import Assets.Fecha;
 
-import Exceptions.PrecioIncorrecto;
-import java.util.Arrays;
+import java.util.*;
 
 public class Principal {
 
@@ -15,26 +14,27 @@ public class Principal {
         
         VehiculoConMotor vc1 = new VehiculoConMotor(1600,v1);
         
-         int[] K = new int[20];
-         int[] G = new int[20];
+         ArrayList<Integer> K = new ArrayList(20);
+         ArrayList<Integer> G = new ArrayList(20);
          
-         K[0] = 30000;
-         K[1] = 15500;
-         K[2] = 22000;
+         K.add(0,30000);
+         K.add(1,15500);
+         K.add(2,22000);
          
-         G[0] = 13000;
-         G[1] = 40000;
-         G[2] = 2000;
+         G.add(0,13000);
+         G.add(1,40000);
+         G.add(2,2000);
+         
          
          Moto m1 = new Moto(K,G,"MU-3456-CV","Rogelio",3,vc1);
          
-         System.out.println(Arrays.toString(m1.getKms()));
-         System.out.println(Arrays.toString(m1.getGastos()));
+         System.out.println(K);
+         System.out.println(G);
          
          m1.tenerRevision(2345, 25567);
          
          
-         System.out.println("La Revisión más cara de: " + m1.getPropietario() + " es " + m1.getGastos(m1.lugarRevisionMasCara()) + "€ " +" y sus Kilometros: " + m1.getKms(m1.lugarRevisionMasCara())+ "Kms.");
+         System.out.println("La Revisión más cara de: " + m1.getPropietario() + " es " + m1.getGastos().get(m1.lugarRevisionMasCara()) + "€ " +" y sus Kilometros: " + m1.getKms().get(m1.lugarRevisionMasCara())+ "Kms.");
        
          Vehiculo[] vehiculos = {m1,vc1,v1};
          System.out.println("");

@@ -2,13 +2,13 @@ package paqVehiculos;
 
 import Assets.Fecha;
 import Exceptions.RevisionesIncorrectas;
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
+
 
 public class Moto extends VehiculoConMotor {
 
-    private int kms[] = new int[20];
-    private int gastos[] = new int[20];
+    private ArrayList<Integer> kms = new ArrayList(20);
+    private ArrayList<Integer> gastos = new ArrayList(20);
     private String matricula;
     private String propietario;
     private int numRevisiones;
@@ -20,7 +20,7 @@ public class Moto extends VehiculoConMotor {
         this.numRevisiones = 0;
     }
 
-    public Moto(int[] kms, int[] gastos, String matricula, String propietario, int numRevisiones, int potencia, String modelo, int precio, int dia, int mes, int anio) {
+    public Moto(ArrayList kms, ArrayList gastos, String matricula, String propietario, int numRevisiones, int potencia, String modelo, int precio, int dia, int mes, int anio) {
         super(potencia, modelo, precio, dia, mes, anio);
         this.matricula = matricula;
         this.propietario = propietario;
@@ -35,7 +35,7 @@ public class Moto extends VehiculoConMotor {
         this.gastos = gastos;
     }
 
-    public Moto(int[] kms, int[] gastos, String matricula, String propietario, int numRevisiones, int potencia, String modelo, int precio, Fecha f) {
+    public Moto(ArrayList kms, ArrayList gastos, String matricula, String propietario, int numRevisiones, int potencia, String modelo, int precio, Fecha f) {
         super(potencia, modelo, precio, f);
         this.matricula = matricula;
         this.propietario = propietario;
@@ -48,7 +48,7 @@ public class Moto extends VehiculoConMotor {
         }
     }
 
-    public Moto(int[] kms, int[] gastos, String matricula, String propietario, int numRevisiones, int potencia, Vehiculo v) {
+    public Moto(ArrayList kms, ArrayList gastos, String matricula, String propietario, int numRevisiones, int potencia, Vehiculo v) {
         super(potencia, v);
         this.matricula = matricula;
         this.propietario = propietario;
@@ -63,7 +63,7 @@ public class Moto extends VehiculoConMotor {
         this.gastos = gastos;
     }
 
-    public Moto(int[] kms, int[] gastos, String matricula, String propietario, int numRevisiones, VehiculoConMotor v) {
+    public Moto(ArrayList kms, ArrayList gastos, String matricula, String propietario, int numRevisiones, VehiculoConMotor v) {
         super(v);
         this.matricula = matricula;
         this.propietario = propietario;
@@ -88,26 +88,19 @@ public class Moto extends VehiculoConMotor {
 
     }
 
-    public int[] getKms() {
+    public ArrayList getKms() {
         return kms;
     }
-    public int getKms(int posicion) {
-        return kms[posicion];
-    }
 
-    public void setKms(int[] kms) {
+    public void setKms(ArrayList kms) {
         this.kms = kms;
     }
 
-    public int[] getGastos() {
+    public ArrayList getGastos() {
         return gastos;
     }
-    public int getGastos(int posicion) {
-        
-        return gastos[posicion];
-    }
 
-    public void setGastos(int[] gastos) {
+    public void setGastos(ArrayList gastos) {
         this.gastos = gastos;
     }
 
@@ -141,7 +134,7 @@ public class Moto extends VehiculoConMotor {
         }
     }
 
-    public void setMoto(int[] kms, int[] gastos, String matricula, String propietario, int numRevisiones, int potencia, String modelo, int precio, int dia, int mes, int anio) {
+    public void setMoto(ArrayList kms, ArrayList gastos, String matricula, String propietario, int numRevisiones, int potencia, String modelo, int precio, int dia, int mes, int anio) {
         super.setVehiculoConMotor(potencia, modelo, precio, dia, mes, anio);
         setKms(kms);
         setGastos(gastos);
@@ -150,7 +143,7 @@ public class Moto extends VehiculoConMotor {
         setNumRevisiones(numRevisiones);
     }
 
-    public void setMoto(int[] kms, int[] gastos, String matricula, String propietario, int numRevisiones, int potencia, String modelo, int precio, Fecha f) {
+    public void setMoto(ArrayList kms, ArrayList gastos, String matricula, String propietario, int numRevisiones, int potencia, String modelo, int precio, Fecha f) {
         super.setVehiculoConMotor(potencia, modelo, precio, f);
         setKms(kms);
         setGastos(gastos);
@@ -159,7 +152,7 @@ public class Moto extends VehiculoConMotor {
         setNumRevisiones(numRevisiones);
     }
 
-    public void setMoto(int[] kms, int[] gastos, String matricula, String propietario, int numRevisiones, int potencia, Vehiculo v) {
+    public void setMoto(ArrayList kms, ArrayList gastos, String matricula, String propietario, int numRevisiones, int potencia, Vehiculo v) {
         super.setVehiculoConMotor(potencia, v);
         setKms(kms);
         setGastos(gastos);
@@ -168,7 +161,7 @@ public class Moto extends VehiculoConMotor {
         setNumRevisiones(numRevisiones);
     }
 
-    public void setMoto(int[] kms, int[] gastos, String matricula, String propietario, int numRevisiones, VehiculoConMotor v) {
+    public void setMoto(ArrayList kms, ArrayList gastos, String matricula, String propietario, int numRevisiones, VehiculoConMotor v) {
         super.setVehiculoConMotor(v);
         setKms(kms);
         setGastos(gastos);
@@ -188,18 +181,18 @@ public class Moto extends VehiculoConMotor {
 
     protected void ordenKms() {
 
-        for (int i = 0; i < kms.length - 1; i++) {
+        for (int i = 0; i < kms.size() - 1; i++) {
             int indice = i;
-            for (int j = i + 1; j < kms.length; j++) {
-                if (kms[j] < kms[indice]) {
+            for (int j = i + 1; j < kms.size(); j++) {
+                if (kms.get(j)< kms.get(indice)) {
                     indice = j;
                 }
-                int auxkms = kms[i];
-                kms[i] = kms[indice];
-                kms[indice] = auxkms;
-                int auxgastos = gastos[i];
-                gastos[i] = gastos[indice];
-                gastos[indice] = auxgastos;
+                int auxkms = kms.get(i);
+                kms.set(i, indice);
+                kms.set(indice, auxkms);
+                int auxgastos = gastos.get(i);
+                gastos.set(i, indice);
+                gastos.set(indice, auxgastos);
             }
         }
 
@@ -209,9 +202,9 @@ public class Moto extends VehiculoConMotor {
 
         int posicionmascara = 0;
 
-        for (int i = 0; i < gastos.length; i++) {
+        for (int i = 0; i < gastos.size(); i++) {
 
-            if (gastos[i] > gastos[posicionmascara]) {
+            if (gastos.get(i) > gastos.get(posicionmascara)){
 
                 posicionmascara = i;
             }
@@ -226,35 +219,23 @@ public class Moto extends VehiculoConMotor {
                 throw new IllegalArgumentException("Debe de haber al menos 1 revisión");
             }
 
-            return kms[posicion];
+            return kms.indexOf(posicion);
 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return -1;
+            return kms.indexOf(posicion);
         }
 
     }
 
     protected void tenerRevision(int kms, int gastos) {
 
-        int i = 0;
         if (this.numRevisiones >= 20 ) {
 
             System.out.println("Superado el limite de revisiones");
         } else {
-
-            while (i < this.kms.length) {
-
-                if (this.kms[i] == 0 && this.gastos[i] == 0) {
-                    this.kms[i] = kms;
-                    this.gastos[i] = gastos;
-                    numRevisiones++;
-                    break;
-
-                }
-
-                i++;
-            }
+            this.kms.add(kms);
+            this.gastos.add(gastos);
         }
     }
 
@@ -265,8 +246,7 @@ public class Moto extends VehiculoConMotor {
     }
 
     @Override
-    public boolean equals(Object obj
-    ) {
+    public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
@@ -286,35 +266,18 @@ public class Moto extends VehiculoConMotor {
         if (!Objects.equals(this.propietario, other.propietario)) {
             return false;
         }
-        if (!Arrays.equals(this.kms, other.kms)) {
+        if (!Objects.equals(this.kms, other.kms)) {
             return false;
         }
-        return Arrays.equals(this.gastos, other.gastos);
+        return Objects.equals(this.gastos, other.gastos);
     }
 
   public String mostrarKms(){
-      String msg = "";
-      if (numRevisiones ==0) {
-          msg="Sin Revisiones";
-      }
-    for (int i = 0; i < kms.length; i++) {
-    if (kms[i] > 0) {
-       msg =  kms[i] + ", " + msg ;
-    }
-  }
-    return msg;
+     return kms.toString();
   }
   public String mostrarGastos(){
-      String msg = "";
-      if (numRevisiones ==0) {
-          msg="Sin Revisiones";
-      }
-    for (int i = 0; i < gastos.length; i++) {
-    if (gastos[i] > 0) {
-       msg =  gastos[i] + ", " + msg ;
-    }
-  }
-    return msg;
+    
+    return gastos.toString();
   }
  
 
